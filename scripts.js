@@ -10,12 +10,20 @@ document.getElementById('registration-form').addEventListener('submit', function
 });
 
 // Language selector logic
-const dropdown = document.querySelector('.dropdown-content');
-dropdown.addEventListener('click', function(event) {
-    const lang = event.target.getAttribute('data-lang');
-    if (lang) {
-        document.querySelector('.dropbtn').textContent = lang.toUpperCase();
-        // Add logic to change language here
-        console.log('Language selected:', lang);
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    const dropbtn = document.querySelector('.dropbtn');
+    const dropdownContent = document.querySelector('.dropdown-content');
+
+    dropbtn.addEventListener('click', (event) => {
+        event.stopPropagation(); // Prevent click from propagating to window
+        dropdownContent.classList.toggle('show');
+    });
+
+    window.addEventListener('click', (event) => {
+        if (!dropdownContent.contains(event.target) && !dropbtn.contains(event.target)) {
+            dropdownContent.classList.remove('show');
+        }
+    });
 });
+
+
